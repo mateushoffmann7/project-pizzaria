@@ -1,6 +1,7 @@
 //pego a api interna - arquivo pizzas.js
 let cart = [];
 let modalQt = 1;
+let modalKey = 0;
 
 //lista de pizzas
 pizzaJson.map((i, index) => {
@@ -17,7 +18,10 @@ pizzaJson.map((i, index) => {
   pizzaItem.querySelector("a").addEventListener("click", (e) => {
     e.preventDefault();
     let key = e.target.closest(".pizza-item").getAttribute("data-key");
+    //reseta quantidade
     modalQt = 1;
+    //qual é a pizza - array
+    modalKey = key;
 
     document.querySelector(".pizzaInfo h1").innerHTML = pizzaJson[key].name;
     document.querySelector(".pizzaInfo--desc").innerHTML = pizzaJson[key].description;
@@ -78,10 +82,33 @@ document.querySelector(".pizzaInfo--qtmais").addEventListener("click", () => {
 });
 
 document.querySelectorAll(".pizzaInfo--size").forEach((size, sizeIndex) => {
-  size.addEventListener("click", () => {
-    document.querySelector(".selected").classList.remove("selected");
+  size.addEventListener("click", (e) => {
+    document.querySelector(".pizzaInfo--size.selected").classList.remove("selected");
     size.classList.add("selected");
   });
 });
 
-document.querySelector(".pizzaInfo--addButton").addEventListener("click", () => {});
+document.querySelector(".pizzaInfo--addButton").addEventListener("click", () => {
+  let size = parseInt(document.querySelector(".pizzaInfo--size.selected").getAttribute("data-key"));
+  let identifier = `${pizzaJson[modalKey].id}@${size}`;
+
+  //cara item do carrinho vai procurar o identifier anterior
+  let key = cart.findIndex((item) => {
+    return item.identifier == identifier;
+  });
+  console.log(key);
+
+  //se o key nao encontrar o mesmo identifier ele adiciona item novo
+  if (key > -1) {
+    cart[key].qt += modalQt;
+  } else {
+    cart.push({
+      identifier,
+      id: pizzaJson[modalKey].id,
+      size,
+      qt: modalQt,
+    });
+  }
+
+  closeModal();
+});
