@@ -1,4 +1,6 @@
 //pego a api interna - arquivo pizzas.js
+let modalQt = 1;
+
 pizzaJson.map((i, index) => {
   //clona o modelo do html - multiplicando pela quantidade de itens no loop
   let pizzaItem = document.querySelector(".models .pizza-item").cloneNode(true);
@@ -13,6 +15,7 @@ pizzaJson.map((i, index) => {
   pizzaItem.querySelector("a").addEventListener("click", (e) => {
     e.preventDefault();
     let key = e.target.closest(".pizza-item").getAttribute("data-key");
+    modalQt = 1;
 
     document.querySelector(".pizzaInfo h1").innerHTML = pizzaJson[key].name;
     document.querySelector(".pizzaInfo--desc").innerHTML =
@@ -23,10 +26,16 @@ pizzaJson.map((i, index) => {
     document.querySelector(
       ".pizzaInfo--actualPrice"
     ).innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
-
+    document.querySelector(".selected").classList.remove("selected");
     document.querySelectorAll(".pizzaInfo--size").forEach((size, sizeIndex) => {
+      if (sizeIndex == 2) {
+        size.classList.add("selected");
+      }
       size.querySelector("span").innerHTML = pizzaJson[key].sizes[sizeIndex];
     });
+
+    //modal sempre abre com quantidade resetada "1"
+    document.querySelector(".pizzaInfo--qt").innerHTML = modalQt;
 
     document.querySelector(".pizzaWindowArea").style.display = "flex";
     document.querySelector(".pizzaWindowArea").style.opacity = "0";
