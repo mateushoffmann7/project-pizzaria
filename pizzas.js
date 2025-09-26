@@ -34,7 +34,7 @@ let pizzaJson = [
   {
     id: 4,
     name: "Sorvete",
-    img: "./assets/pizza5.png",
+    img: "./assets/pizzaSorvete.png",
     price: 21.43,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
     description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
