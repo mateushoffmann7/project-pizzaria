@@ -117,15 +117,32 @@ selector(".pizzaInfo--addButton").addEventListener("click", () => {
   closeModal();
 });
 
+selector(".menu-openner").addEventListener("click", () => {
+  if (cart.length > 0) {
+    selector("aside").style.left = "0";
+  }
+});
+selector(".menu-closer").addEventListener("click", () => {
+  selector("aside").style.left = "100dvh";
+});
+
 const updateCart = () => {
+  selector(".menu-openner span").innerHTML = cart.length;
+
   if (cart.length > 0) {
     selector("aside").classList.add("show");
     selector(".cart").innerHTML = "";
+
+    let subtotal = 0;
+    let disccount = 0;
+    let total = 0;
 
     cart.forEach((i) => {
       let pizzaItem = pizzaJson.find((item) => {
         return item.id == i.id;
       });
+
+      subtotal += pizzaItem.price * i.qt;
 
       let pizzaSize;
       switch (i.size) {
@@ -145,9 +162,30 @@ const updateCart = () => {
       cartItem.querySelector(".cart--item-nome").innerHTML = `${pizzaItem.name} (${pizzaSize})`;
       cartItem.querySelector(".cart--item--qt").innerHTML = `${i.qt}`;
 
+      cartItem.querySelector(".cart--item-qtmenos").addEventListener("click", () => {
+        if (i.qt > 1) {
+          i.qt--;
+        } else {
+          cart.splice(i, 1);
+        }
+        updateCart();
+      });
+      cartItem.querySelector(".cart--item-qtmais").addEventListener("click", () => {
+        i.qt++;
+        updateCart();
+      });
+
       selector(".cart").append(cartItem);
     });
+
+    disccount = subtotal * 0.1;
+    total = subtotal - disccount;
+
+    selector(".subtotal span:last-child").innerHTML = `R$ ${subtotal.toFixed(2)}`;
+    selector(".desconto span:last-child").innerHTML = `R$ ${disccount.toFixed(2)}`;
+    selector(".total span:last-child").innerHTML = `R$ ${total.toFixed(2)}`;
   } else {
     selector("aside").classList.remove("show");
+    selector("aside").style.left = "100dvh";
   }
 };
