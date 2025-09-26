@@ -318,6 +318,11 @@ h1 {
   color: #000;
   font-weight: bold;
 }
+.cart--finalizar a {
+  text-decoration: none;
+  color: #fff;
+}
+
 .cart--finalizar {
   padding: 20px 30px;
   border-radius: 20px;
@@ -331,6 +336,16 @@ h1 {
 }
 .cart--finalizar:hover {
   background-color: #35af4a;
+}
+
+.textFinish {
+  font-size: 35px;
+  display: flex;
+  width: 100%;
+  line-height: 30px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
 
 @media (max-width: 1000px) {
@@ -422,5 +437,18 @@ h1 {
   }
   .pizzaInfo--cancelMobileButton {
     display: block;
+  }
+
+  .textFinish {
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .alignText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
