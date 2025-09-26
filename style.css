@@ -319,8 +319,18 @@ h1 {
   font-weight: bold;
 }
 .cart--finalizar a {
+  display: inline;
   text-decoration: none;
   color: #fff;
+  padding: 20px 100px;
+  border-radius: 20px;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  margin-top: 20px;
+  border: 2px solid transparent;
+  transition: all ease 0.2s;
 }
 
 .cart--finalizar {
@@ -334,6 +344,7 @@ h1 {
   border: 2px solid #63f77c;
   transition: all ease 0.2s;
 }
+
 .cart--finalizar:hover {
   background-color: #35af4a;
 }
@@ -450,5 +461,9 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .cart--finalizar a {
+    padding: 20px 55px;
   }
 }
