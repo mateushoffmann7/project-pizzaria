@@ -1,3 +1,12 @@
+//função para seletorde query
+const selector = (e) => {
+  return document.querySelector(e);
+};
+
+const selectorAll = (e) => {
+  return document.querySelectorAll(e);
+};
+
 //pego a api interna - arquivo pizzas.js
 let cart = [];
 let modalQt = 1;
@@ -6,7 +15,7 @@ let modalKey = 0;
 //lista de pizzas
 pizzaJson.map((i, index) => {
   //clona o modelo do html - multiplicando pela quantidade de itens no loop
-  let pizzaItem = document.querySelector(".models .pizza-item").cloneNode(true);
+  let pizzaItem = selector(".models .pizza-item").cloneNode(true);
 
   pizzaItem.setAttribute("data-key", i.id);
   pizzaItem.querySelector(".pizza-item--name").innerHTML = i.name;
@@ -23,14 +32,12 @@ pizzaJson.map((i, index) => {
     //qual é a pizza - array
     modalKey = key;
 
-    document.querySelector(".pizzaInfo h1").innerHTML = pizzaJson[key].name;
-    document.querySelector(".pizzaInfo--desc").innerHTML = pizzaJson[key].description;
-    document.querySelector(".pizzaBig img").setAttribute("src", pizzaJson[key].img);
-    document.querySelector(".pizzaInfo--actualPrice").innerHTML = `R$ ${pizzaJson[
-      key
-    ].price.toFixed(2)}`;
-    document.querySelector(".selected").classList.remove("selected");
-    document.querySelectorAll(".pizzaInfo--size").forEach((size, sizeIndex) => {
+    selector(".pizzaInfo h1").innerHTML = pizzaJson[key].name;
+    selector(".pizzaInfo--desc").innerHTML = pizzaJson[key].description;
+    selector(".pizzaBig img").setAttribute("src", pizzaJson[key].img);
+    selector(".pizzaInfo--actualPrice").innerHTML = `R$ ${pizzaJson[key].price.toFixed(2)}`;
+    selector(".selected").classList.remove("selected");
+    selectorAll(".pizzaInfo--size").forEach((size, sizeIndex) => {
       if (sizeIndex == 2) {
         size.classList.add("selected");
       }
@@ -38,65 +45,61 @@ pizzaJson.map((i, index) => {
     });
 
     //modal sempre abre com quantidade resetada "1"
-    document.querySelector(".pizzaInfo--qt").innerHTML = modalQt;
+    selector(".pizzaInfo--qt").innerHTML = modalQt;
 
-    document.querySelector(".pizzaWindowArea").style.display = "flex";
-    document.querySelector(".pizzaWindowArea").style.opacity = "0";
+    selector(".pizzaWindowArea").style.display = "flex";
+    selector(".pizzaWindowArea").style.opacity = "0";
     setTimeout(() => {
-      document.querySelector(".pizzaWindowArea").style.opacity = "1";
+      selector(".pizzaWindowArea").style.opacity = "1";
     }, 200);
   });
 
   //coloca na tela cada pizza
-  document.querySelector(".pizza-area").append(pizzaItem);
+  selector(".pizza-area").append(pizzaItem);
 });
 
 //modal events
 const closeModal = () => {
-  document.querySelector(".pizzaWindowArea").style.opacity = "0";
+  selector(".pizzaWindowArea").style.opacity = "0";
   setTimeout(() => {
-    document.querySelector(".pizzaWindowArea").style.display = "none";
+    selector(".pizzaWindowArea").style.display = "none";
   }, 500);
 };
 
 //botões para fechar modal
+selectorAll(".pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton").forEach((item) => {
+  item.addEventListener("click", closeModal);
+});
 
-document
-  .querySelectorAll(".pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton")
-  .forEach((e) => {
-    e.addEventListener("click", closeModal);
-  });
-
-document.querySelector(".pizzaInfo--qtmenos").addEventListener("click", () => {
+selector(".pizzaInfo--qtmenos").addEventListener("click", () => {
   if (modalQt > 1) {
     modalQt--;
-    document.querySelector(".pizzaInfo--qt").innerHTML = modalQt;
+    selector(".pizzaInfo--qt").innerHTML = modalQt;
   } else {
     modalQt == 1;
   }
 });
 
-document.querySelector(".pizzaInfo--qtmais").addEventListener("click", () => {
+selector(".pizzaInfo--qtmais").addEventListener("click", () => {
   modalQt++;
-  document.querySelector(".pizzaInfo--qt").innerHTML = modalQt;
+  selector(".pizzaInfo--qt").innerHTML = modalQt;
 });
 
-document.querySelectorAll(".pizzaInfo--size").forEach((size, sizeIndex) => {
+selectorAll(".pizzaInfo--size").forEach((size) => {
   size.addEventListener("click", (e) => {
-    document.querySelector(".pizzaInfo--size.selected").classList.remove("selected");
+    selector(".pizzaInfo--size.selected").classList.remove("selected");
     size.classList.add("selected");
   });
 });
 
-document.querySelector(".pizzaInfo--addButton").addEventListener("click", () => {
-  let size = parseInt(document.querySelector(".pizzaInfo--size.selected").getAttribute("data-key"));
+selector(".pizzaInfo--addButton").addEventListener("click", () => {
+  //tranformando em number - parseInt() === "+"
+  let size = +selector(".pizzaInfo--size.selected").getAttribute("data-key");
   let identifier = `${pizzaJson[modalKey].id}@${size}`;
-
-  //cara item do carrinho vai procurar o identifier anterior
+  //cada item do carrinho vai procurar o identifier anterior
   let key = cart.findIndex((item) => {
     return item.identifier == identifier;
   });
-  console.log(key);
 
   //se o key nao encontrar o mesmo identifier ele adiciona item novo
   if (key > -1) {
@@ -110,5 +113,41 @@ document.querySelector(".pizzaInfo--addButton").addEventListener("click", () => 
     });
   }
 
+  updateCart();
   closeModal();
 });
+
+const updateCart = () => {
+  if (cart.length > 0) {
+    selector("aside").classList.add("show");
+    selector(".cart").innerHTML = "";
+
+    cart.forEach((i) => {
+      let pizzaItem = pizzaJson.find((item) => {
+        return item.id == i.id;
+      });
+
+      let pizzaSize;
+      switch (i.size) {
+        case 0:
+          pizzaSize = "P";
+          break;
+        case 1:
+          pizzaSize = "M";
+          break;
+        case 2:
+          pizzaSize = "G";
+          break;
+      }
+
+      let cartItem = selector(".models .cart--item").cloneNode(true);
+      cartItem.querySelector("img").src = pizzaItem.img;
+      cartItem.querySelector(".cart--item-nome").innerHTML = `${pizzaItem.name} (${pizzaSize})`;
+      cartItem.querySelector(".cart--item--qt").innerHTML = `${i.qt}`;
+
+      selector(".cart").append(cartItem);
+    });
+  } else {
+    selector("aside").classList.remove("show");
+  }
+};
