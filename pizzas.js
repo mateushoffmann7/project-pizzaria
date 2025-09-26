@@ -5,8 +5,7 @@ let pizzaJson = [
     img: "./assets/pizza.png",
     price: 20.19,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 1,
@@ -14,8 +13,7 @@ let pizzaJson = [
     img: "./assets/pizza2.png",
     price: 18.0,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 2,
@@ -23,8 +21,7 @@ let pizzaJson = [
     img: "./assets/pizza3.png",
     price: 17.45,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 3,
@@ -32,8 +29,7 @@ let pizzaJson = [
     img: "./assets/pizza4.png",
     price: 19.77,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 4,
@@ -41,8 +37,7 @@ let pizzaJson = [
     img: "./assets/pizza5.png",
     price: 21.43,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 5,
@@ -50,8 +45,7 @@ let pizzaJson = [
     img: "./assets/pizza6.png",
     price: 18.55,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
   {
     id: 6,
@@ -59,7 +53,6 @@ let pizzaJson = [
     img: "./assets/pizza7.png",
     price: 22.36,
     sizes: ["8 Pç", "12 Pç", "16 Pç"],
-    description:
-      "Descrição da pizza em mais de uma linha muito legal bem interessante",
+    description: "Descrição Descrição Descrição Descrição Descrição Descrição Descrição",
   },
 ];
